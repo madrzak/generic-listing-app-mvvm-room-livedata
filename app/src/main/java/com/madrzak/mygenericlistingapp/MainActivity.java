@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.madrzak.mygenericlistingapp.ui.adduser.AddUserFragment;
+import com.madrzak.mygenericlistingapp.ui.users.UsersFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +38,7 @@ public class MainActivity extends FragmentActivity {
                     changeFragment(new AddUserFragment());
                     break;
                 case R.id.action_list:
-//                    changeFragment(new AddUserFragment());
+                    changeFragment(new UsersFragment());
                     break;
             }
             return true;

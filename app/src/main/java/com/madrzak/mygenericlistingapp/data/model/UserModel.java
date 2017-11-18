@@ -4,6 +4,8 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Created by Łukasz on 04/11/2017.
  */
@@ -20,6 +22,11 @@ public class UserModel {
     @ColumnInfo(name = "surname")
     private String surname;
 
+
+    public boolean isValid() {
+        return name != null && !StringUtils.isEmpty(name)
+                && surname != null&& !StringUtils.isEmpty(surname);
+    }
 
     public int getUid() {
         return uid;

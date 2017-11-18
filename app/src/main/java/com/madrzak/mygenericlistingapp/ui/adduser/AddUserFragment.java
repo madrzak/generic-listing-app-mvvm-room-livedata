@@ -8,13 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.madrzak.mygenericlistingapp.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 /**
  * Created by Łukasz on 04/11/2017.
@@ -33,12 +33,23 @@ public class AddUserFragment extends Fragment {
     public AddUserFragment() {
     }
 
-
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+
+        mViewModel = ViewModelProviders.of(this).get(AddUserViewModel.class);
+
+        mViewModel.getUserCreated().observe(this, aBoolean -> {
+            if (aBoolean) {
+                clearForm();
+                Toast.makeText(getActivity(), "User created", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), "User not created", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
 
     @Nullable
     @Override
@@ -47,14 +58,16 @@ public class AddUserFragment extends Fragment {
 
         ButterKnife.bind(this, root);
 
-        mViewModel = ViewModelProviders.of(this).get(AddUserViewModel.class);
 
-        mViewModel.getUsers().observe(this, userModels -> {
-            Timber.i("users count " + userModels.size());
-        });
 
         return root;
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
 
 
     @OnClick(R.id.btn_save)
@@ -62,5 +75,10 @@ public class AddUserFragment extends Fragment {
 
         mViewModel.addUser(etName.getText().toString(), etSurname.getText().toString());
 
+    }
+
+    private void clearForm(){
+        etName.setText("");
+        etSurname.setText("");
     }
 }

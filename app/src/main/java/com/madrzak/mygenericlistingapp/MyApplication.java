@@ -6,7 +6,6 @@ import android.arch.persistence.room.Room;
 import com.facebook.stetho.Stetho;
 import com.madrzak.mygenericlistingapp.data.AppDatabase;
 import com.madrzak.mygenericlistingapp.data.AppDatabaseHelper;
-import com.madrzak.mygenericlistingapp.data.model.UserModel;
 
 import timber.log.Timber;
 
@@ -26,15 +25,6 @@ public class MyApplication extends Application {
 
         final AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "lukasz-secret-data").build();
-
-        final UserModel user = new UserModel();
-        user.setName("lukasz");
-        user.setSurname("Madrzak");
-
-        new Thread(() ->
-                db.userDao().insertAll(user)
-        ).start();
-
 
         AppDatabaseHelper.init(db);
 
