@@ -1,5 +1,5 @@
 # generic-listing-app-mvvm-room-livedata
-Basic app following MVVM pattern using modern Google's Android Architecture Components Room &amp; LiveData 
+Basic app following MVVM pattern using Google's modern Android Architecture Components Room &amp; LiveData 
 
 
 To do:
