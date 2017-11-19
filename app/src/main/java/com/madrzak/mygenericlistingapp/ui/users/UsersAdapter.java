@@ -8,13 +8,13 @@ import android.widget.TextView;
 
 import com.madrzak.mygenericlistingapp.R;
 import com.madrzak.mygenericlistingapp.data.model.UserModel;
+import com.madrzak.mygenericlistingapp.util.DatesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 /**
  * Created by Łukasz on 18/11/2017.
@@ -64,11 +64,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         UserModel userModel = mUsers.get(position);
 
-        Timber.i("bind ", position);
-
         holder.tvName.setText(userModel.getName());
         holder.tvSurname.setText(userModel.getSurname());
-        holder.tvDate.setText("Write migration for db");
+        holder.tvDate.setText(DatesUtil.format(userModel.getDateCreated()));
     }
 
     @Override

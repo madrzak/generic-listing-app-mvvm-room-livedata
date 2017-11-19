@@ -9,6 +9,8 @@ import com.madrzak.mygenericlistingapp.data.AppDatabaseHelper;
 import com.madrzak.mygenericlistingapp.data.model.UserModel;
 import com.madrzak.mygenericlistingapp.data.source.UsersRepository;
 
+import java.util.Date;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -46,6 +48,7 @@ public class AddUserViewModel extends AndroidViewModel {
             return;
         }
 
+        userModel.setDateCreated(new Date());
         usersRepository.add(userModel)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

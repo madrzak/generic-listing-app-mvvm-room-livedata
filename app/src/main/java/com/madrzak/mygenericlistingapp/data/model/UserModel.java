@@ -18,18 +18,23 @@ import static com.madrzak.mygenericlistingapp.data.model.UserModel.TABLE_NAME;
 public class UserModel {
     public static final String TABLE_NAME = "users";
     public static final String COL_DATE_CREATED = "date_created";
+    public static final String COL_NAME = "name";
+    public static final String COL_SURNAME = "surname";
 
     @PrimaryKey(autoGenerate = true)
     private int uid;
 
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = COL_NAME)
     private String name;
 
-    @ColumnInfo(name = "surname")
+    @ColumnInfo(name = COL_SURNAME)
     private String surname;
 
     @ColumnInfo(name = COL_DATE_CREATED)
-    public Date dateCreated;
+    private Date dateCreated;
+
+
+
 
 
     public boolean isValid() {
@@ -61,11 +66,11 @@ public class UserModel {
         this.surname = surname;
     }
 
-    private Date getDateCreated() {
+    public Date getDateCreated() {
         return dateCreated;
     }
 
-    private void setDateCreated(Date dateCreated) {
+    public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
 }
