@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.madrzak.mygenericlistingapp.R;
+import com.madrzak.mygenericlistingapp.util.CollectionsUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +37,9 @@ public class UsersFragment extends Fragment {
 
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
+
+    @BindView(R.id.tv_empty_view)
+    TextView mTvEmptyView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,10 @@ public class UsersFragment extends Fragment {
         mRecyclerView.setAdapter(mUsersAdapter);
 
         mUsersViewModel.getUsers().observe(this, userModels -> {
+            if (CollectionsUtil.isNullOrEmpty(userModels)) {
+                emptyList();
+                return;
+            }
             Timber.i("got users " + userModels.size());
             mUsersAdapter.replaceData(userModels);
         });
@@ -89,6 +98,12 @@ public class UsersFragment extends Fragment {
     private void dataLoaded() {
         mProgressBar.setVisibility(View.GONE);
         mRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private void emptyList() {
+        mProgressBar.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.GONE);
+        mTvEmptyView.setVisibility(View.VISIBLE);
     }
 
 }
