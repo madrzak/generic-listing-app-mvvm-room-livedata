@@ -6,7 +6,7 @@ To do:
 
 [] write Room migration and create date property for user && write tests for the migration
 
-[] display states for the list view (loading, empty list)
+[x] display states for the list view (loading, empty list)
 
 [] edit a user after selecting from the list
 
