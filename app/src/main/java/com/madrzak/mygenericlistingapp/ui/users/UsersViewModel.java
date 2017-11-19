@@ -11,6 +11,7 @@ import com.madrzak.mygenericlistingapp.data.source.UsersRepository;
 
 import java.util.List;
 
+import lombok.Getter;
 import timber.log.Timber;
 
 /**
@@ -23,6 +24,9 @@ public class UsersViewModel extends AndroidViewModel {
 
     private LiveData<List<UserModel>> users;
 
+    @Getter
+    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
+
     public UsersViewModel(Application application) {
         super(application);
 
@@ -33,6 +37,7 @@ public class UsersViewModel extends AndroidViewModel {
 
     public LiveData<List<UserModel>> getUsers() {
         if (users == null) {
+            isLoading.setValue(true);
             users = new MutableLiveData<>();
             loadUsers();
         }
@@ -44,6 +49,7 @@ public class UsersViewModel extends AndroidViewModel {
         Timber.i("loadUsers");
 
         users = usersRepository.getAll();
+        isLoading.setValue(false);
     }
 
 }

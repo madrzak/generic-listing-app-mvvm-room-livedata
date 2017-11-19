@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.madrzak.mygenericlistingapp.R;
 
@@ -25,11 +26,15 @@ public class UsersFragment extends Fragment {
     private UsersViewModel mUsersViewModel;
 
     private RecyclerView.LayoutManager mLayoutManager;
+
     private UsersAdapter mUsersAdapter;
 
 
     @BindView(R.id.rv)
     RecyclerView mRecyclerView;
+
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,7 +65,13 @@ public class UsersFragment extends Fragment {
             mUsersAdapter.replaceData(userModels);
         });
 
-        // TODO add states to fragment for empty list and loading
+        mUsersViewModel.getIsLoading().observe(this, isLoading -> {
+            if (isLoading) {
+                dataLoading();
+            } else {
+                dataLoaded();
+            }
+        });
 
         return view;
     }
@@ -68,6 +79,16 @@ public class UsersFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
+
+    private void dataLoading() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.GONE);
+    }
+
+    private void dataLoaded() {
+        mProgressBar.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+    }
+
 }
