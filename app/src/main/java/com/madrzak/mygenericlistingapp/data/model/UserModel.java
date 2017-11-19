@@ -6,12 +6,18 @@ import android.arch.persistence.room.PrimaryKey;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Date;
+
+import static com.madrzak.mygenericlistingapp.data.model.UserModel.TABLE_NAME;
+
 /**
  * Created by Łukasz on 04/11/2017.
  */
 
-@Entity(tableName = "users")
+@Entity(tableName = TABLE_NAME)
 public class UserModel {
+    public static final String TABLE_NAME = "users";
+    public static final String COL_DATE_CREATED = "date_created";
 
     @PrimaryKey(autoGenerate = true)
     private int uid;
@@ -22,10 +28,13 @@ public class UserModel {
     @ColumnInfo(name = "surname")
     private String surname;
 
+    @ColumnInfo(name = COL_DATE_CREATED)
+    public Date dateCreated;
+
 
     public boolean isValid() {
         return name != null && !StringUtils.isEmpty(name)
-                && surname != null&& !StringUtils.isEmpty(surname);
+                && surname != null && !StringUtils.isEmpty(surname);
     }
 
     public int getUid() {
@@ -50,5 +59,13 @@ public class UserModel {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    private Date getDateCreated() {
+        return dateCreated;
+    }
+
+    private void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
 }

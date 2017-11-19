@@ -1,11 +1,8 @@
 package com.madrzak.mygenericlistingapp;
 
 import android.app.Application;
-import android.arch.persistence.room.Room;
 
 import com.facebook.stetho.Stetho;
-import com.madrzak.mygenericlistingapp.data.AppDatabase;
-import com.madrzak.mygenericlistingapp.data.AppDatabaseHelper;
 
 import timber.log.Timber;
 
@@ -23,10 +20,10 @@ public class MyApplication extends Application {
         Stetho.initializeWithDefaults(this);
 
 
-        final AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "lukasz-secret-data").build();
-
-        AppDatabaseHelper.init(db);
+//        final AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+//                AppDatabase.class, "lukasz-secret-data").build();
+//
+//        AppDatabaseHelper.init(db);
 
     }
 }

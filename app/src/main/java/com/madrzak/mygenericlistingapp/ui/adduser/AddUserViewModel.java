@@ -30,7 +30,7 @@ public class AddUserViewModel extends AndroidViewModel {
 
 
         if (usersRepository == null) {
-            usersRepository = new UsersRepository(AppDatabaseHelper.getInstance().getDatabase().userDao());
+            usersRepository = new UsersRepository(AppDatabaseHelper.getInstance(application).getDatabase().userDao());
         }
     }
 

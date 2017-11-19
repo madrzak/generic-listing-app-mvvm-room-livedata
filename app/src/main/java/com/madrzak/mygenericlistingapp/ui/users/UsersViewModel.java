@@ -27,7 +27,7 @@ public class UsersViewModel extends AndroidViewModel {
         super(application);
 
         if (usersRepository == null) {
-            usersRepository = new UsersRepository(AppDatabaseHelper.getInstance().getDatabase().userDao());
+            usersRepository = new UsersRepository(AppDatabaseHelper.getInstance(application).getDatabase().userDao());
         }
     }
 
