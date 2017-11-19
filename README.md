@@ -4,7 +4,7 @@ Basic app following MVVM pattern using Google's modern Android Architecture Comp
 
 To do:
 
-[] write Room migration and create date property for user && write tests for the migration
+[x] write Room migration and create date property for user & write tests for the migration
 
 [x] display states for the list view (loading, empty list)
 
