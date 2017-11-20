@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.madrzak.mygenericlistingapp.ui.adduser.AddUserFragment;
+import com.madrzak.mygenericlistingapp.ui.edituser.EditUserFragment;
 import com.madrzak.mygenericlistingapp.ui.users.UsersFragment;
 
 import butterknife.BindView;
@@ -75,7 +76,8 @@ public class MainActivity extends FragmentActivity implements UsersFragment.OnUs
     @Override
     public void onUserSelected(int userId) {
         Timber.i("Edit user %s", userId);
-        // TODO go to edit user fragment - pass user id in bundle
+        EditUserFragment f = EditUserFragment.newInstance(userId);
+        changeFragment(f);
     }
 
 }

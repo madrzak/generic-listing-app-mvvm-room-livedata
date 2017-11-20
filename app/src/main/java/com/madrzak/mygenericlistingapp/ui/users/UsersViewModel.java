@@ -49,6 +49,7 @@ public class UsersViewModel extends AndroidViewModel {
         Timber.i("loadUsers");
 
         users = usersRepository.getAll();
+
         isLoading.setValue(false);
     }
 

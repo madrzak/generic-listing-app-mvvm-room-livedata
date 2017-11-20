@@ -13,12 +13,17 @@ import com.madrzak.mygenericlistingapp.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 /**
  * Created by Łukasz on 20/11/2017.
  */
 
 public class EditUserFragment extends Fragment {
+
+    private static final String ARG_USER_ID = "user_id";
+
+    private int userId;
 
     @BindView(R.id.et_name)
     EditText etName;
@@ -29,12 +34,25 @@ public class EditUserFragment extends Fragment {
 
     private EditUserViewModel mEditUserViewModel;
 
+    public static EditUserFragment newInstance(int userId) {
+        EditUserFragment editUserFragment = new EditUserFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_USER_ID, userId);
+        editUserFragment.setArguments(args);
+
+        return editUserFragment;
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mEditUserViewModel = ViewModelProviders.of(this).get(EditUserViewModel.class);
+
+        if (getArguments() != null) {
+            userId = getArguments().getInt(ARG_USER_ID);
+        }
     }
 
 
@@ -52,6 +70,7 @@ public class EditUserFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        Timber.i("edit user %s", userId);
 
 
     }
