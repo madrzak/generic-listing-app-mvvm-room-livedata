@@ -20,10 +20,5 @@ public class MyApplication extends Application {
         Stetho.initializeWithDefaults(this);
 
 
-//        final AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-//                AppDatabase.class, "lukasz-secret-data").build();
-//
-//        AppDatabaseHelper.init(db);
-
     }
 }

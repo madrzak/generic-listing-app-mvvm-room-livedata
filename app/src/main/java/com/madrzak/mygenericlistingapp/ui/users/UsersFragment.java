@@ -1,6 +1,7 @@
 package com.madrzak.mygenericlistingapp.ui.users;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,12 +26,17 @@ import timber.log.Timber;
 
 public class UsersFragment extends Fragment {
 
+    public interface OnUserSelectedListener {
+        void onUserSelected (int userId);
+    }
+
+    private OnUserSelectedListener mListener;
+
     private UsersViewModel mUsersViewModel;
 
     private RecyclerView.LayoutManager mLayoutManager;
 
     private UsersAdapter mUsersAdapter;
-
 
     @BindView(R.id.rv)
     RecyclerView mRecyclerView;
@@ -40,6 +46,17 @@ public class UsersFragment extends Fragment {
 
     @BindView(R.id.tv_empty_view)
     TextView mTvEmptyView;
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mListener = (OnUserSelectedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnUserSelectedListener");
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +79,7 @@ public class UsersFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mUsersAdapter = new UsersAdapter(mUsersViewModel);
+        mUsersAdapter = new UsersAdapter(mUsersViewModel, mListener);
         mRecyclerView.setAdapter(mUsersAdapter);
 
         mUsersViewModel.getUsers().observe(this, userModels -> {

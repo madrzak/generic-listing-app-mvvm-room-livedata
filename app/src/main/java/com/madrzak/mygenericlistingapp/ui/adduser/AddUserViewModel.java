@@ -13,6 +13,7 @@ import java.util.Date;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import lombok.Getter;
 import timber.log.Timber;
 
 /**
@@ -23,9 +24,8 @@ public class AddUserViewModel extends AndroidViewModel {
 
     private UsersRepository usersRepository;
 
-
-    public MutableLiveData<Boolean> userCreated;
-
+    @Getter
+    private MutableLiveData<Boolean> userCreated;
 
     public AddUserViewModel(Application application) {
         super(application);

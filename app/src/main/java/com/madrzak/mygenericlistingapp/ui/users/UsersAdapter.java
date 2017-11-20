@@ -23,11 +23,13 @@ import butterknife.ButterKnife;
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
 
     private final UsersViewModel mUsersViewModel;
+    private final UsersFragment.OnUserSelectedListener mListener;
 
     private List<UserModel> mUsers = new ArrayList<>();
 
-    public UsersAdapter(UsersViewModel usersViewModel) {
+    public UsersAdapter(UsersViewModel usersViewModel, UsersFragment.OnUserSelectedListener listener) {
         this.mUsersViewModel = usersViewModel;
+        this.mListener = listener;
     }
 
     public void replaceData(List<UserModel> users) {
@@ -67,6 +69,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         holder.tvName.setText(userModel.getName());
         holder.tvSurname.setText(userModel.getSurname());
         holder.tvDate.setText(DatesUtil.format(userModel.getDateCreated()));
+
+        holder.itemView.setOnClickListener(view -> {
+            mListener.onUserSelected(userModel.getUid());
+        });
     }
 
     @Override

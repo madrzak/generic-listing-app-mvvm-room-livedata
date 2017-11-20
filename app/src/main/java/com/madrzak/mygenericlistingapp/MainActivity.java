@@ -12,12 +12,13 @@ import com.madrzak.mygenericlistingapp.ui.users.UsersFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 /**
  * Created by Łukasz on 04/11/2017.
  */
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements UsersFragment.OnUserSelectedListener {
 
     @BindView(R.id.bottom_navigation)
     BottomNavigationView mBottomNav;
@@ -70,5 +71,11 @@ public class MainActivity extends FragmentActivity {
         return false;
     }
 
+
+    @Override
+    public void onUserSelected(int userId) {
+        Timber.i("Edit user %s", userId);
+        // TODO go to edit user fragment - pass user id in bundle
+    }
 
 }

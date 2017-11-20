@@ -54,13 +54,13 @@ public class AddUserFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.adduser_frag, container, false);
+        final View view = inflater.inflate(R.layout.adduser_frag, container, false);
 
-        ButterKnife.bind(this, root);
+        ButterKnife.bind(this, view);
 
 
 
-        return root;
+        return view;
     }
 
     @Override
