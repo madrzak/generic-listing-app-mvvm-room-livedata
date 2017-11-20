@@ -7,9 +7,6 @@ package com.madrzak.mygenericlistingapp.util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import static com.madrzak.mygenericlistingapp.util.ExclusionEliminationStrategy.Direction.DESERIALIZATION;
-import static com.madrzak.mygenericlistingapp.util.ExclusionEliminationStrategy.Direction.SERIALIZATION;
-
 public class GsonFactory {
     private static volatile Gson gson;
 
@@ -22,8 +19,6 @@ public class GsonFactory {
                 if (gson == null) {
                     gson = new GsonBuilder()
                             .setDateFormat(ISO_DATE_FORMAT)
-                            .addDeserializationExclusionStrategy(new ExclusionEliminationStrategy(DESERIALIZATION))
-                            .addSerializationExclusionStrategy(new ExclusionEliminationStrategy(SERIALIZATION))
                             .create();
                 }
             }

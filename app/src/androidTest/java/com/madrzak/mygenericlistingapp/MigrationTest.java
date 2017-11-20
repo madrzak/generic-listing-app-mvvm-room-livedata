@@ -68,7 +68,7 @@ public class MigrationTest {
         Assert.assertEquals(user.getName(), newUser.getName());
         Assert.assertEquals(user.getSurname(), newUser.getSurname());
         Assert.assertNull(newUser.getDateCreated());
-        
+
     }
 
     private AppDatabase getMigratedRoomDatabase() {
