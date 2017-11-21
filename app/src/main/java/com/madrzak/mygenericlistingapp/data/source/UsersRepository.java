@@ -42,8 +42,11 @@ public class UsersRepository implements Repository<UserModel> {
     }
 
     @Override
-    public void update(UserModel item) {
-
+    public Observable<Boolean> update(final UserModel item) {
+        return Observable.fromCallable(() -> {
+            userDao.updateAll(item);
+            return true;
+        });
     }
 
     @Override
@@ -54,6 +57,11 @@ public class UsersRepository implements Repository<UserModel> {
     @Override
     public LiveData<List<UserModel>> getAll() {
         return userDao.getAll();
+    }
+
+    @Override
+    public LiveData<UserModel> getUser(int userId) {
+        return userDao.getById(userId);
     }
 
 

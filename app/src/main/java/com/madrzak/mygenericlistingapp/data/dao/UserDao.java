@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.madrzak.mygenericlistingapp.data.model.UserModel;
 
@@ -27,8 +28,15 @@ public interface UserDao {
             + "surname LIKE :last LIMIT 1")
     UserModel findByName(String first, String last);
 
+
+    @Query("SELECT * FROM USERS WHERE uid = :userId")
+    LiveData<UserModel> getById(int userId);
+
     @Insert
     void insertAll(UserModel... users);
+
+    @Update
+    void updateAll(UserModel... users);
 
     @Delete
     void delete(UserModel user);

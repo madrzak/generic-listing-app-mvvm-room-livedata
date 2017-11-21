@@ -34,6 +34,10 @@ public class MainActivity extends FragmentActivity implements UsersFragment.OnUs
 
         changeFragment(new AddUserFragment());
 
+        setupBottomNav();
+    }
+
+    private void setupBottomNav() {
         mBottomNav.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_add:
@@ -44,7 +48,6 @@ public class MainActivity extends FragmentActivity implements UsersFragment.OnUs
                     break;
             }
             return true;
-
         });
     }
 

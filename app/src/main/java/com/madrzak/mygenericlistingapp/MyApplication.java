@@ -19,6 +19,5 @@ public class MyApplication extends Application {
         Timber.plant(new Timber.DebugTree());
         Stetho.initializeWithDefaults(this);
 
-
     }
 }

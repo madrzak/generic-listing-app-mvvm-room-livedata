@@ -37,7 +37,6 @@ public class AddUserFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         mViewModel = ViewModelProviders.of(this).get(AddUserViewModel.class);
 
         mViewModel.getUserCreated().observe(this, aBoolean -> {
@@ -48,7 +47,6 @@ public class AddUserFragment extends Fragment {
                 Toast.makeText(getActivity(), "User not created", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Nullable
@@ -57,8 +55,6 @@ public class AddUserFragment extends Fragment {
         final View view = inflater.inflate(R.layout.adduser_frag, container, false);
 
         ButterKnife.bind(this, view);
-
-
 
         return view;
     }

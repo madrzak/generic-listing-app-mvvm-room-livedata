@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.madrzak.mygenericlistingapp.R;
+import com.madrzak.mygenericlistingapp.data.model.UserModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
+import butterknife.OnClick;
 
 /**
  * Created by Łukasz on 20/11/2017.
@@ -23,16 +25,15 @@ public class EditUserFragment extends Fragment {
 
     private static final String ARG_USER_ID = "user_id";
 
-    private int userId;
-
     @BindView(R.id.et_name)
     EditText etName;
 
     @BindView(R.id.et_surname)
     EditText etSurname;
 
-
     private EditUserViewModel mEditUserViewModel;
+    private int userId;
+    private UserModel mUserModel;
 
     public static EditUserFragment newInstance(int userId) {
         EditUserFragment editUserFragment = new EditUserFragment();
@@ -52,6 +53,12 @@ public class EditUserFragment extends Fragment {
 
         if (getArguments() != null) {
             userId = getArguments().getInt(ARG_USER_ID);
+
+            mEditUserViewModel.getUser(userId).observe(this, userModel -> {
+                mUserModel = userModel;
+                etName.setText(userModel.getName());
+                etSurname.setText(userModel.getSurname());
+            });
         }
     }
 
@@ -69,9 +76,19 @@ public class EditUserFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
 
-        Timber.i("edit user %s", userId);
+    @OnClick(R.id.btn_save)
+    public void onSave() {
+        mUserModel.setName(etName.getText().toString());
+        mUserModel.setSurname(etSurname.getText().toString());
 
-
+        mEditUserViewModel.updateUser(mUserModel).observe(this, success -> {
+            if (success) {
+                Toast.makeText(getActivity(), "User edited", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), "User not edited", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
