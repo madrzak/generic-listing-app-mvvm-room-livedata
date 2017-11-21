@@ -8,6 +8,6 @@ To do:
 
 [x] display states for the list view (loading, empty list)
 
-[] edit a user after selecting from the list
+[x] edit a user after selecting from the list
 
 [] implement Repository for updating local data from the web (will require net interface - retrofit)
