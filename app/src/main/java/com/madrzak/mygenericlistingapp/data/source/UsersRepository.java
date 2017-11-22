@@ -1,12 +1,11 @@
 package com.madrzak.mygenericlistingapp.data.source;
 
-import android.arch.lifecycle.LiveData;
-
 import com.madrzak.mygenericlistingapp.data.dao.UserDao;
 import com.madrzak.mygenericlistingapp.data.model.UserModel;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 
@@ -29,7 +28,7 @@ public class UsersRepository implements Repository<UserModel> {
         return INSTANCE;
     }
 
-    public UsersRepository(UserDao userDao) {
+    private UsersRepository(UserDao userDao) {
         this.userDao = userDao;
     }
 
@@ -55,13 +54,15 @@ public class UsersRepository implements Repository<UserModel> {
     }
 
     @Override
-    public LiveData<List<UserModel>> getAll() {
+    public Flowable<List<UserModel>> getAll() {
         return userDao.getAll();
     }
 
     @Override
-    public LiveData<UserModel> getUser(int userId) {
+    public Flowable<UserModel> getUser(int userId) {
+
         return userDao.getById(userId);
+
     }
 
 

@@ -82,6 +82,8 @@ public class UsersFragment extends Fragment {
         mUsersAdapter = new UsersAdapter(mUsersViewModel, mListener);
         mRecyclerView.setAdapter(mUsersAdapter);
 
+        dataLoading();
+
         mUsersViewModel.getUsers().observe(this, userModels -> {
             if (CollectionsUtil.isNullOrEmpty(userModels)) {
                 emptyList();
@@ -89,14 +91,7 @@ public class UsersFragment extends Fragment {
             }
             Timber.i("got users " + userModels.size());
             mUsersAdapter.replaceData(userModels);
-        });
-
-        mUsersViewModel.getIsLoading().observe(this, isLoading -> {
-            if (isLoading) {
-                dataLoading();
-            } else {
-                dataLoaded();
-            }
+            dataLoaded();
         });
 
         return view;

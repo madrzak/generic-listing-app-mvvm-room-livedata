@@ -1,11 +1,10 @@
 package com.madrzak.mygenericlistingapp.data.source;
 
-import android.arch.lifecycle.LiveData;
-
 import com.madrzak.mygenericlistingapp.data.model.UserModel;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 /**
@@ -14,15 +13,15 @@ import io.reactivex.Observable;
 
 public interface Repository<T> {
 
-    io.reactivex.Observable<Boolean> add(T item);
+    Observable<Boolean> add(T item);
 
     Observable<Boolean> update(T item);
 
     void remove(T item);
 
-    LiveData<List<UserModel>> getAll();
+    Flowable<List<UserModel>> getAll();
 
-    LiveData<UserModel> getUser(int userId);
+    Flowable<UserModel> getUser(int userId);
 
 
 }

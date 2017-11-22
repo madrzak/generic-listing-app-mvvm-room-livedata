@@ -39,14 +39,6 @@ public class AddUserFragment extends Fragment {
 
         mViewModel = ViewModelProviders.of(this).get(AddUserViewModel.class);
 
-        mViewModel.getUserCreated().observe(this, aBoolean -> {
-            if (aBoolean) {
-                clearForm();
-                Toast.makeText(getActivity(), "User created", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getActivity(), "User not created", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Nullable
@@ -65,15 +57,23 @@ public class AddUserFragment extends Fragment {
     }
 
 
-
     @OnClick(R.id.btn_save)
     public void onSave() {
 
-        mViewModel.addUser(etName.getText().toString(), etSurname.getText().toString());
+        mViewModel.addUser(etName.getText().toString(), etSurname.getText().toString())
+                .observe(this, aBoolean -> {
+                    if (aBoolean) {
+                        clearForm();
+                        Toast.makeText(getActivity(), "User created", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "User not created", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        ;
 
     }
 
-    private void clearForm(){
+    private void clearForm() {
         etName.setText("");
         etSurname.setText("");
     }

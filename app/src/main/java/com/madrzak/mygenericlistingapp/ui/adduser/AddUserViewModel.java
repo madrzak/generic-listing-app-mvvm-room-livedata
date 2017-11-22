@@ -13,7 +13,6 @@ import java.util.Date;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import lombok.Getter;
 import timber.log.Timber;
 
 /**
@@ -24,18 +23,17 @@ public class AddUserViewModel extends AndroidViewModel {
 
     private UsersRepository usersRepository;
 
-    @Getter
-    private MutableLiveData<Boolean> userCreated;
+    private MutableLiveData<Boolean> userCreated = new MutableLiveData<>();
 
     public AddUserViewModel(Application application) {
         super(application);
 
         if (usersRepository == null) {
-            usersRepository = new UsersRepository(AppDatabaseHelper.getInstance(application).getDatabase().userDao());
+            usersRepository = UsersRepository.getInstance(AppDatabaseHelper.getInstance(application).getDatabase().userDao());
         }
     }
 
-    public void addUser(String name, String surname) {
+    public LiveData<Boolean> addUser(String name, String surname) {
         Timber.i("onSave %s %s ", name, surname);
 
         UserModel userModel = new UserModel();
@@ -44,7 +42,7 @@ public class AddUserViewModel extends AndroidViewModel {
 
         if (!userModel.isValid()) {
             userCreated.setValue(false);
-            return;
+            return userCreated;
         }
 
         userModel.setDateCreated(new Date());
@@ -53,16 +51,12 @@ public class AddUserViewModel extends AndroidViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
                     userCreated.setValue(aBoolean);
+
                 }, throwable -> {
                     userCreated.setValue(false);
                     Timber.e(throwable);
                 });
-    }
-
-    public LiveData<Boolean> getUserCreated() {
-        if (userCreated == null) {
-            userCreated = new MutableLiveData<>();
-        }
         return userCreated;
     }
+
 }

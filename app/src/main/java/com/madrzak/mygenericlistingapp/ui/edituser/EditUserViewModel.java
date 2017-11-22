@@ -3,6 +3,7 @@ package com.madrzak.mygenericlistingapp.ui.edituser;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.LiveDataReactiveStreams;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.madrzak.mygenericlistingapp.data.AppDatabaseHelper;
@@ -11,7 +12,6 @@ import com.madrzak.mygenericlistingapp.data.source.UsersRepository;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import lombok.Getter;
 import timber.log.Timber;
 
 /**
@@ -22,26 +22,29 @@ public class EditUserViewModel extends AndroidViewModel {
 
     private UsersRepository mUsersRepository;
 
-    @Getter
-    private MutableLiveData<Boolean> userUpdated;
+    private MutableLiveData<Boolean> userUpdated = new MutableLiveData<>();
 
     public EditUserViewModel(Application application) {
         super(application);
 
         if (mUsersRepository == null) {
-            mUsersRepository = new UsersRepository(AppDatabaseHelper.getInstance(application).getDatabase().userDao());
+            mUsersRepository = UsersRepository.getInstance(AppDatabaseHelper.getInstance(application).getDatabase().userDao());
         }
     }
 
     public LiveData<UserModel> getUser(int userId) {
-        return mUsersRepository.getUser(userId);
+        return LiveDataReactiveStreams.fromPublisher(
+                mUsersRepository.getUser(userId)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+        );
     }
 
-    // TODO establish if this should return void instead and provide a separate method for getting LiveData object
     public LiveData<Boolean> updateUser(final UserModel userModel) {
 
         if (!userModel.isValid()) {
             userUpdated.setValue(false);
+            return userUpdated;
         }
 
         mUsersRepository.update(userModel)
