@@ -15,3 +15,9 @@ To do:
 [] create spring server to serve data
 
 [] implement data sync engine to update local data efficiently
+
+
+Target architecture
+
+![alt text](https://user-images.githubusercontent.com/8465802/33153160-72b57ba2-cfd8-11e7-8a1a-e07de3813e6d.png)
+
