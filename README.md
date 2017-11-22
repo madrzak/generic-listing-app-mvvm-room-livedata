@@ -19,5 +19,5 @@ To do:
 
 Target architecture
 
-![alt text](https://user-images.githubusercontent.com/8465802/33153160-72b57ba2-cfd8-11e7-8a1a-e07de3813e6d.png)
+![alt text](https://user-images.githubusercontent.com/8465802/33153559-65bf86ac-cfda-11e7-9644-b4fb451de768.png)
 
