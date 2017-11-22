@@ -17,7 +17,8 @@ To do:
 [] implement data sync engine to update local data efficiently
 
 
-Target architecture
 
 ![alt text](https://user-images.githubusercontent.com/8465802/33153559-65bf86ac-cfda-11e7-9644-b4fb451de768.png)
+Target architecture
 
+Server code will be linked here once complete (coming soon)
